@@ -1,25 +1,25 @@
 import { createRouter,createWebHashHistory } from "vue-router";
-import AddStudent from "../components/Student/AddStudent.vue"
-import EditStudent from "../components/Student/EditStudent.vue";
-import ListStudent from "../components/Student/ListStudent.vue";
+import AddTeam from "../components/Student/AddTeam.vue"
+import EditTeam from "../components/Student/EditTeam.vue";
+import ListTeams from "../components/Student/ListTeams.vue";
 import NotFound from "../components/Student/NotFound.vue";
 
 const routes = [
     {
         path:'/',
-        name:"liststudent",
-        component:ListStudent
+        name:"listteams",
+        component:ListTeams
          
     },
     {
-        path:'/addstudent',
-        name:"addstudent",
-        component:AddStudent
+        path:'/addteams',
+        name:"addteams",
+        component:AddTeam
     },
     {
-        path:'/editstudent/:id',
-        name:"editstudent",
-        component:EditStudent
+        path:'/editteams',
+        name:"editteams",
+        component:EditTeam
     },
     {
         path: '/:pathMatch(.*)*', 

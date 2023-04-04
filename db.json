@@ -1,0 +1,14 @@
+{
+
+    "teams":[
+        {
+            "id": 1,
+            "age":40,
+            "player_name" : "Vihang",
+            "team_name" : "Grey_mighty",
+            "cricket_skill":"Bestman",
+            "player_status":"Captain"
+
+        }
+    ]
+}
