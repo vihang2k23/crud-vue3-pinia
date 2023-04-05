@@ -15,7 +15,9 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-
+import mitt from 'mitt';                  // Import mitt
+const emitter = mitt(); 
+// console.log(emitter,); 
 // import bootstrap from 'bootstrap'
 const vuetify = createVuetify({
   components,
@@ -34,4 +36,5 @@ app.component('EasyDataTable', Vue3EasyDataTable);
 
 app.use(vuetify)
 app.use(router)
+app.provide('emitter', emitter);  
 app.mount('#app')

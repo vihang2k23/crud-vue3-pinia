@@ -1,8 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import { ref,inject, onMounted } from "vue";
 import { useField, useForm } from "vee-validate";
 
-console.log(useForm,"useForm");
+//import store for additem in api
+import { useteamsStore } from "../../stores/teams";
+const store = useteamsStore();
+//validation 
 const { handleSubmit, handleReset } = useForm({
     validationSchema: {
         player_name(value) {
@@ -24,7 +27,7 @@ const { handleSubmit, handleReset } = useForm({
       if (value) return true;
 
       return "Select an item.";
-    },  team(value) {
+    },  team_name(value) {
       if (value) return true;
 
       return "Select an item.";
@@ -32,17 +35,32 @@ const { handleSubmit, handleReset } = useForm({
     
   },
 });
+
+const emitter = inject('emitter');   // Inject `emitter`
+
+onMounted(()=>{
+  emitter.on('myevent', (value) => {   // *Listen* for event
+     console.log(value,"value----");  
+     
+    });
+
+})
+
+
+
+//variable for form
 const player_name = useField("player_name");
 const age = useField("age");
 const cricket_skill = useField("cricket_skill");
 const player_status = useField("player_status");
-const team = useField("team");
+const team_name = useField("team_name");
 
 const cricket_skill_array = ref(["Bestman", "Bowler", "AllRounder"]);
 const player_status_array = ref(['Captain','Vicecaptain','Player'])
 const teams = ref(["Red Squad","Marvel Monsters","The Hustlers","Daybreak Demos"," Grey Mighty","Trojan Octree","Team Mavericks"])  
 const submit = handleSubmit((values) => {
-
+  store.setdata(values)
+  handleReset()
 });
 
 </script>
@@ -84,9 +102,9 @@ const submit = handleSubmit((values) => {
 
 
         <v-select
-        v-model="team.value.value"
+        v-model="team_name.value.value"
         :items="teams"
-        :error-messages="team.errorMessage.value"
+        :error-messages="team_name.errorMessage.value"
         label="Select Your Team"
       ></v-select>
           <v-btn class="me-4" type="submit"> submit </v-btn>
@@ -97,7 +115,7 @@ const submit = handleSubmit((values) => {
   </div>
 </template>
 
-<style >
+<style scoped>
 .container-demo {
   background: url("../../assets/cricketbg.jpeg");
   background-size: cover;

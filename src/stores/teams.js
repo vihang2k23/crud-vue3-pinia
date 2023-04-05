@@ -6,8 +6,8 @@ import axios from "axios"
 export const useteamsStore = defineStore('teams',()=>{
 //state
 let data = ref([]);
-let count = ref(0)
-console.log(data,"data------");
+
+// console.log(data,"data------");
 
 //getters
 const getdata = computed(()=>{
@@ -18,9 +18,9 @@ const getdata = computed(()=>{
 async function fetchdata() {
     try {
         const res = await axios.get('http://localhost:3000/teams')
-        console.log(res,"res");
+        // console.log(res,"res");
         this.data = res.data
-        console.log(data,"data");
+        // console.log(this.data,"data");
         }
         catch (error) {
           alert(error)
@@ -28,25 +28,40 @@ async function fetchdata() {
       }
       
 } 
-function increment (){
-    count.value++
-}
+
 async function setdata(data) {
     try{
         const res = await axios.post("http://localhost:3000/teams",data)
         console.log(res,"res--->");
         this.data.push(res)
+        // console.log(this.data,"response data");
     }
     catch(error){
+        alert(error,"error")
+    }
+}
+
+async function deletedata(value){
+    try{
+        await axios.delete("http://localhost:3000/teams/"+value.id)
+    }catch(error){
+        alert(error,"error")
+    }
+}
+async function updatedata(value,data){
+    try{
+       const res =  await axios.put("http://localhost:3000/teams/"+value.id,data)
+       console.log(res);
+    }catch(error){
         alert(error,"error")
     }
 }
  return{
     data,
     getdata,
-    fetchdata,
-    count,
-    increment,
+    
+   deletedata,
+   fetchdata,
     setdata
  }
 })

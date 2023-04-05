@@ -12,12 +12,12 @@ const routes = [
          
     },
     {
-        path:'/addteams',
-        name:"addteams",
+        path:'/addteam',
+        name:"addteam",
         component:AddTeam
     },
     {
-        path:'/editteams',
+        path:'/editteams/:id',
         name:"editteams",
         component:EditTeam
     },
